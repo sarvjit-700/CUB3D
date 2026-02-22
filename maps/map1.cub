@@ -1,0 +1,13 @@
+NO ../xpms/wall.png
+SO ../xpms/wall.png
+EA ../xpms/wall.png
+WE ../xpms/wall.png
+
+F 1,200,0
+C 4, 4, 5
+
+11111111
+10000001
+10N00001
+10000001
+11111111
