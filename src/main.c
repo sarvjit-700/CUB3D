@@ -14,7 +14,7 @@
 
 int skip_spaces(char *line, int i)
 {
-    while (line[i] == 32 || line[i] == '\t')
+    while (line[i] == 32 || (line[i] >= 9 && line[i] <= 13))
         i++;
     return (i);
 }
@@ -26,7 +26,7 @@ void    parse_id(char *line, t_map_data *data)
     i = 0;
     i = skip_spaces(line, i);
 
-    if (line[i] == '\0' || line[i] == '\n')
+    if (line[i] == '\0' || line[i] == '\n' || line[i] == '\r')
         return ;
     if (ft_strncmp(&line[i], "NO ", 3) == 0)
         data->elems_found++;
@@ -42,7 +42,6 @@ void    parse_id(char *line, t_map_data *data)
         data->elems_found++;
     else if (data->elems_found < 6)
         printf("Error missing element %d\n", data->elems_found);
-    printf("found elem %d\n", i);
 }
 
 void    init_map(t_map_data *data)
@@ -51,26 +50,51 @@ void    init_map(t_map_data *data)
     ft_memset(&data->ceiling, -1, sizeof(t_colour));
     ft_memset(&data->floor, -1, sizeof(t_colour));
     data->elems_found = 0;
+    data->raw_map = ft_strdup("");
 }
 
 int    parse_data(int fd, t_map_data *data)
 {
     char *line;
+    int     len;
 
     line = get_next_line(fd);
     init_map(data);
-    //data->elems_found = 0;
     while (line)
     {
         if (data->elems_found < 6)
+        {
             parse_id(line, data);
+            printf("element found: %s\n", data->no.path);
+        }
         else
         {
-            printf("need to parse map now\n");
+            // if (line[0] != '\0' && line[0] != '\n' && line[0] != '\r')
+            // {
+            //     printf("Parsing map line: %s\n", line);
+            data->raw_map = ft_strjoin_free(data->raw_map, line);
+           // }
         }
         free(line);
+        line = get_next_line(fd);
     }
     close(fd);
+    //printf("raw : \n%s\n", data->raw_map);
+    len = ft_strlen(data->raw_map);
+    while (len > 0 && data->raw_map[len - 1] == '\n')
+    {
+        data->raw_map[len - 1] = '\0';
+        len--;
+    }
+    if (check_empty_lines(data->raw_map))
+    {
+        free(data->raw_map);
+        printf("Error - Empty line inside the map\n");
+        return (0);
+    }
+    data->grid = ft_split(data->raw_map, '\n');
+    free(data->raw_map);
+    data->raw_map = NULL;
     return (1);
 }
 

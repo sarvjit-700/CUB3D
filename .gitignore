@@ -1,3 +1,5 @@
 MLX42/
 a.out
 cub3d
+*.o
+*.d

@@ -46,10 +46,16 @@ typedef struct s_map_data
     t_colour    floor;
     t_colour    ceiling;
     int         elems_found;
+    char        *raw_map;
     char        **grid;
     int         width;
     int         height;
 }   t_map_data;
+
+
+// functions - map_help //
+char    *ft_strjoin_free(char *s1, char *s2);
+int     check_empty_lines(char *raw_map);
 
 
 #endif

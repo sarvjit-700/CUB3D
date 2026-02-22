@@ -38,7 +38,7 @@ MLX_INC = -I$(MLX_DIR)/include
 
 
 # files
-SRC = $(SRC_DIR)/main.c
+SRC = $(SRC_DIR)/main.c $(SRC_DIR)/map_help.c
 OBJ = $(SRC:.c=.o)
 
 INCLUDES = -Iincludes -I$(LIBFT_DIR) -I MLX42/include
