@@ -22,6 +22,9 @@
 #include "../libft/libft.h"
 #include "MLX42/MLX42.h"
 
+#define SCREEN_WIDTH 1024
+#define SCREEN_HEIGHT 768
+
 typedef struct s_texture
 {
     char            *path;
@@ -45,6 +48,8 @@ typedef struct s_player
 
 typedef struct s_map_data
 {
+    mlx_t       *mlx;
+    mlx_image_t *img;
     t_texture   no;
     t_texture   so;
     t_texture   ea;
@@ -72,6 +77,9 @@ int	is_valid_char(char c);
 int	loop_grid(t_map_data *data, int y, int x, int *player);
 int	valid_grid_player(t_map_data *data);
 int check_walls(t_map_data *data);
+
+// -- draw -- //
+int init_graphics(t_map_data *data);
 
 
 #endif

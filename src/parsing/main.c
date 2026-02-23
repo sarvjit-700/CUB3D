@@ -6,7 +6,7 @@
 /*   By: ssukhija <ssukhija@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 16:02:20 by ssukhija          #+#    #+#             */
-/*   Updated: 2026/02/23 17:13:41 by ssukhija         ###   ########.fr       */
+/*   Updated: 2026/02/23 18:18:01 by ssukhija         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,5 +139,10 @@ int	main(int argc, char **argv)
 		printf("Error could not open the map file\n");
 		return (0);
 	}
-	parse_data(fd, &data);
+	if (parse_data(fd, &data))
+	{
+		printf("Parsing great!! BOOTING MLX\n");
+		init_graphics(&data);
+	}
+	return (0);
 }

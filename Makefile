@@ -30,6 +30,7 @@ RM = rm -rf
 LIBFT_DIR	:= ./libft
 LIBFT	:= $(LIBFT_DIR)/libft.a
 PARSING	:= ./src/parsing
+RENDER	:= ./src/rendering
 
 MLX_DIR = MLX42
 MLX_LIB = $(MLX_DIR)/build/libmlx42.a
@@ -38,7 +39,8 @@ MLX_INC = -I$(MLX_DIR)/include
 
 
 # files
-SRC = $(PARSING)/main.c $(PARSING)/map_help.c $(PARSING)/validate_grid.c
+SRC = $(PARSING)/main.c $(PARSING)/map_help.c $(PARSING)/validate_grid.c\
+		$(RENDER)/draw.c
 OBJ = $(SRC:.c=.o)
 
 INCLUDES = -Iincludes -I$(LIBFT_DIR) -I MLX42/include

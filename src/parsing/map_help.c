@@ -6,7 +6,7 @@
 /*   By: ssukhija <ssukhija@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 22:00:34 by ssukhija          #+#    #+#             */
-/*   Updated: 2026/02/23 17:05:14 by ssukhija         ###   ########.fr       */
+/*   Updated: 2026/02/23 17:57:36 by ssukhija         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,11 @@ int	check_empty_lines(char *raw_map)
 
 	i = 0;
 	j = 0;
-	while (raw_map[i] == '\n')
+	
+	while (raw_map[i] == '\n' || raw_map[i] == '\r' || 
+	       raw_map[i] == ' ' || raw_map[i] == '\t')
 		i++;
+		
 	while (raw_map[i])
 	{
 		if (raw_map[i] == '\n')
