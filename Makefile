@@ -29,7 +29,7 @@ RM = rm -rf
 # paths
 LIBFT_DIR	:= ./libft
 LIBFT	:= $(LIBFT_DIR)/libft.a
-SRC_DIR	:= ./src
+PARSING	:= ./src/parsing
 
 MLX_DIR = MLX42
 MLX_LIB = $(MLX_DIR)/build/libmlx42.a
@@ -38,7 +38,7 @@ MLX_INC = -I$(MLX_DIR)/include
 
 
 # files
-SRC = $(SRC_DIR)/main.c $(SRC_DIR)/map_help.c
+SRC = $(PARSING)/main.c $(PARSING)/map_help.c $(PARSING)/validate_grid.c
 OBJ = $(SRC:.c=.o)
 
 INCLUDES = -Iincludes -I$(LIBFT_DIR) -I MLX42/include
