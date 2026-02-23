@@ -6,7 +6,7 @@
 /*   By: ssukhija <ssukhija@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 16:02:20 by ssukhija          #+#    #+#             */
-/*   Updated: 2026/02/23 18:18:01 by ssukhija         ###   ########.fr       */
+/*   Updated: 2026/02/23 20:06:27 by ssukhija         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,19 @@ void	parse_id(char *line, t_map_data *data)
 	else if (ft_strncmp(&line[i], "WE ", 3) == 0)
 		data->elems_found++;
 	else if (ft_strncmp(&line[i], "F ", 2) == 0)
-		data->elems_found++;
+	{
+		if (parse_colour(&line[i], &data->floor))
+			data->elems_found++;
+		else
+			printf("Error - Invalid floor colour\n");
+	}
 	else if (ft_strncmp(&line[i], "C ", 2) == 0)
-		data->elems_found++;
+	{
+		if (parse_colour(&line[i], &data->ceiling))
+			data->elems_found++;
+		else
+			printf("Error - Invalid ceiling colour\n");
+	}
 	else if (data->elems_found < 6)
 		printf("Error missing element %d\n", data->elems_found);
 }
@@ -142,6 +152,7 @@ int	main(int argc, char **argv)
 	if (parse_data(fd, &data))
 	{
 		printf("Parsing great!! BOOTING MLX\n");
+		init_player_vectors(&data);
 		init_graphics(&data);
 	}
 	return (0);

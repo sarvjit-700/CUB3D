@@ -3,8 +3,8 @@ SO ../xpms/wall.png
 EA ../xpms/wall.png
 WE ../xpms/wall.png
 
-F 1,200,0
-C 4, 4, 5
+F  255, 69,0
+C  100,0,0
 
 11111111
 1000N111
