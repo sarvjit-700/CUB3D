@@ -42,6 +42,8 @@ void    key_hook(void *param)
         mlx_close_window(data->mlx);
 }
 
+
+
 void   perform_dda(t_ray *ray, t_map_data *data)
 {
     ray->hit = 0;
@@ -141,6 +143,9 @@ void    render_frame(void *param)
     t_ray       ray;
 
     data = (t_map_data *)param;
+    move_player(data);
+    strafe_player(data);
+    rotate_player(data);
     draw_background(data);
     x = 0;
     while (x < SCREEN_WIDTH)

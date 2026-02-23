@@ -1,11 +1,21 @@
-NO ../xpms/wall.png
-SO ../xpms/wall.png
-EA ../xpms/wall.png
-WE ../xpms/wall.png
+NO ../textures/wall.png
+SO ../textures/wall.png
+EA ../textures/wall.png
+WE ../textures/wall.png
 
-F  255, 69,0
-C  100,0,0
+F  34,139,34
+C  135,206,235
 
 11111111
-1000N111
+10000001
+10101001
+10101001
+10001001
+10000001
+1000N001
+10000001
+10000001
+10111101
+10000001
+10000001
 11111111

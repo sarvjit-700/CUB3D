@@ -70,6 +70,14 @@ typedef struct s_map_data
     int         width;
     int         height;
     t_player    player;
+    char        *no_path;
+    char        *so_path;
+    char        *we_path;
+    char        *ea_path;
+    mlx_texture_t *tex_n;
+    mlx_texture_t *tex_s;
+    mlx_texture_t *tex_e;
+    mlx_texture_t *tex_w;
 }   t_map_data;
 
 typedef struct s_ray
@@ -97,7 +105,7 @@ typedef struct s_ray
 char    *ft_strjoin_free(char *s1, char *s2);
 int     check_empty_lines(char *raw_map);
 void	free_grid(char **grid);
-void map_dimensions(t_map_data *data);
+void    map_dimensions(t_map_data *data);
 char	**dup_grid(char **grid, int height);
 
 
@@ -117,5 +125,8 @@ int init_graphics(t_map_data *data);
 
 // -- player --//
 void    init_player_vectors(t_map_data *data);
+void    move_player(t_map_data *data);
+void    rotate_player(t_map_data *data);
+void    strafe_player(t_map_data *data);
 
 #endif

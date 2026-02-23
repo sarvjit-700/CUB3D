@@ -6,7 +6,7 @@
 /*   By: ssukhija <ssukhija@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 13:21:06 by ssukhija          #+#    #+#             */
-/*   Updated: 2026/02/23 17:22:00 by ssukhija         ###   ########.fr       */
+/*   Updated: 2026/02/23 22:03:49 by ssukhija         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	loop_grid(t_map_data *data, int y, int x, int *player)
 		data->player.x = (double)x + 0.5;
 		data->player.y = (double)y + 0.5;
 		data->player.direction = data->grid[y][x];
-		// data->grid[y][x] = '0'; THIS MAKES PLAYER 0 FOR RAYCASTER? 
+		data->grid[y][x] = '0'; // THIS MAKES PLAYER 0 FOR RAYCASTER? 
 		printf("players :  %d\n", (*player));
 	}
 	return (1);
