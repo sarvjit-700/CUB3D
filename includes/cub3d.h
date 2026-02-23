@@ -62,7 +62,6 @@ typedef struct s_map_data
 // functions - map_help //
 char    *ft_strjoin_free(char *s1, char *s2);
 int     check_empty_lines(char *raw_map);
-int	check_empty_lines(char *raw_map);
 void	free_grid(char **grid);
 void map_dimensions(t_map_data *data);
 char	**dup_grid(char **grid, int height);
@@ -72,7 +71,7 @@ char	**dup_grid(char **grid, int height);
 int	is_valid_char(char c);
 int	loop_grid(t_map_data *data, int y, int x, int *player);
 int	valid_grid_player(t_map_data *data);
-int check_walls();
+int check_walls(t_map_data *data);
 
 
 #endif

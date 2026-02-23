@@ -6,7 +6,7 @@
 /*   By: ssukhija <ssukhija@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 13:21:06 by ssukhija          #+#    #+#             */
-/*   Updated: 2026/02/23 17:04:47 by ssukhija         ###   ########.fr       */
+/*   Updated: 2026/02/23 17:22:00 by ssukhija         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,29 +71,14 @@ int	valid_grid_player(t_map_data *data)
 
 int	floodfill(char **map, int x, int y, int max_height)
 {
-	printf("FLOOD FILL\n");
 	if (y < 0 || y >= max_height)
-	{
-		printf(":red_circle: LEAK: Stepped out of vertical bounds at x:%d, y:%d\n", x, y);
 		return (0);
-	}
 	if (x < 0 || x >= (int)ft_strlen(map[y]))
-	{
-		printf(":red_circle: LEAK: Stepped out of HORZ bounds at x:%d, y:%d\n", x, y);
 		return (0);
-	}
 	if (map[y][x] == ' ' || map[y][x] == '\0')
-	{
-		printf(":red_circle: LEAK: Touched the void (space or \\0) at x:%d, y:%d\n", x, y);
 		return (0);
-	}
 	if (map[y][x] == '1' || map[y][x] == 'V')
-	{
-		printf(":red_circle: LEAK: Touched the void (space or \\0) at x:%d, y:%d\n", x, y);
 		return (1);
-	}
-	
-	printf("Flooding empty space at x:%d, y:%d\n", x, y);
 	map[y][x] = 'V';
 	if (!floodfill(map, x + 1, y, max_height) ||
 		!floodfill(map, x - 1, y, max_height) ||
@@ -116,7 +101,6 @@ int	check_walls(t_map_data *data)
 	if (!map_copy)
 		return (0);
 	is_valid = floodfill(map_copy, pos_px, pos_py, data->height);
-	printf("flood fill worked %d\n", is_valid);
 	free_grid(map_copy);
 	if (!is_valid)
 	{

@@ -6,7 +6,7 @@
 /*   By: ssukhija <ssukhija@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 16:02:20 by ssukhija          #+#    #+#             */
-/*   Updated: 2026/02/23 17:05:08 by ssukhija         ###   ########.fr       */
+/*   Updated: 2026/02/23 17:13:41 by ssukhija         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,9 @@ int	parse_data(int fd, t_map_data *data)
 	data->raw_map = NULL;
 	map_dimensions(data);
 	valid_grid_player(data);
-	check_walls();
-	return (1);
+    if (!check_walls(data))
+        return (0);
+    return (1);
 }
 
 int	check_extension(const char *filename)
