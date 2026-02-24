@@ -1,9 +1,8 @@
-NO ./images/Bricks.xpm
-SO ./images/gokux64.xpm
-WE ./images/nazi.xpm
-EA ./images/chicotex64.xpm
-F 1009,72,72
-C 32,32,2005
+NO ./textures/wallN.png
+SO ./textures/wallS.png
+EA ./textures/wallE.png
+F 32,72,72
+C 32,32,32
 
 1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
 11                                                                                                                  11

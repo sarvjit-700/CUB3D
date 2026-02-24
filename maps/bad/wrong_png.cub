@@ -1,7 +1,7 @@
-NO     ./images/Bricks.xpm
-SO    ./images/gokux64.xpm
-WE    ./images/nazi.xpm
-EA    ./images/my_tanned_eggs.xpm
+NO     ./images/Bricks.png
+SO    ./images/gokux64.png
+WE    ./images/nazi.png
+EA    ./images/my_tanned_eggs.png
 F 72,72,72
 C 32,32,32
 

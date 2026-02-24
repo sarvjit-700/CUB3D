@@ -6,7 +6,7 @@
 /*   By: ssukhija <ssukhija@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 16:02:20 by ssukhija          #+#    #+#             */
-/*   Updated: 2026/02/24 13:42:39 by ssukhija         ###   ########.fr       */
+/*   Updated: 2026/02/24 16:00:48 by ssukhija         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,6 +193,5 @@ int	main(int argc, char **argv)
 		init_player_vectors(&data);
 		init_graphics(&data);
 	}
-	//free_map_data(&data);
 	return (0);
 }

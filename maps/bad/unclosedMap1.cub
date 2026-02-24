@@ -1,7 +1,7 @@
-NO ./images/gokux64.xpm
-SO ./images/chicotex64.xpm
-WE ./images/bookshelf.xpm
-EA ./images/Bricks.xpm
+NO ./textures/wallN.png
+SO ./textures/wallS.png
+EA ./textures/wallE.png
+WE ./textures/wallW.png
 F 72,72,72
 C 32,32,32
 

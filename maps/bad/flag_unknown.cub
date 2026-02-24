@@ -1,7 +1,7 @@
-NO ./images/Bricks.xpm
-SO ./images/gokux64.xpm
-WE ./images/nazi.xpm
-IA ./images/chicotex64.xpm
+NO ./textures/wallN.png
+SO ./textures/wallS.png
+WE ./textures/wallW.png
+IA ./textures/wallE.png
 F 72,72,72
 C 32,32,32
 
