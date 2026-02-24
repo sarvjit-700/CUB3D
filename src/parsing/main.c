@@ -6,7 +6,7 @@
 /*   By: ssukhija <ssukhija@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 16:02:20 by ssukhija          #+#    #+#             */
-/*   Updated: 2026/02/23 20:06:27 by ssukhija         ###   ########.fr       */
+/*   Updated: 2026/02/24 13:42:39 by ssukhija         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,28 +19,55 @@ int	skip_spaces(char *line, int i)
 	return (i);
 }
 
-void	parse_id(char *line, t_map_data *data)
+char	*extract_path(char *line)
+{
+	int		i;
+	int		len;
+	char	*path;
+
+	i = 0;
+	len = 0;
+	while (line[i] == 32 || line[i] == '\t')
+		i++;
+	while (line[i + len] && !ft_isspace(line[i + len]))
+		len++;
+	path = ft_substr(line, i, len);
+	return (path);
+}
+
+int	parse_id(char *line, t_map_data *data)
 {
 	int	i;
 
 	i = 0;
 	i = skip_spaces(line, i);
 	if (line[i] == '\0' || line[i] == '\n' || line[i] == '\r')
-		return ;
+		return(1) ;
 	if (ft_strncmp(&line[i], "NO ", 3) == 0)
+	{
 		data->elems_found++;
+		data->no.path = extract_path(&line[i + 3]);
+	}
 	else if (ft_strncmp(&line[i], "SO ", 3) == 0)
+	{
 		data->elems_found++;
+		data->so.path = extract_path(&line[i + 3]);
+	}
 	else if (ft_strncmp(&line[i], "EA ", 3) == 0)
+	{
 		data->elems_found++;
-	else if (ft_strncmp(&line[i], "WE ", 3) == 0)
+		data->ea.path = extract_path(&line[i + 3]);
+	}	else if (ft_strncmp(&line[i], "WE ", 3) == 0)
+	{
 		data->elems_found++;
+		data->we.path = extract_path(&line[i + 3]);
+	}
 	else if (ft_strncmp(&line[i], "F ", 2) == 0)
 	{
 		if (parse_colour(&line[i], &data->floor))
 			data->elems_found++;
 		else
-			printf("Error - Invalid floor colour\n");
+			return (0);
 	}
 	else if (ft_strncmp(&line[i], "C ", 2) == 0)
 	{
@@ -50,7 +77,8 @@ void	parse_id(char *line, t_map_data *data)
 			printf("Error - Invalid ceiling colour\n");
 	}
 	else if (data->elems_found < 6)
-		printf("Error missing element %d\n", data->elems_found);
+		return (0);
+	return (1);
 }
 
 void	init_map(t_map_data *data)
@@ -71,9 +99,10 @@ int	fill_grid(t_map_data *data)
 	if (data->raw_map)
 	{
 		len = ft_strlen(data->raw_map);
-		while (len > 0 && (data->raw_map[len - 1] == '\n' || data->raw_map[len
-				- 1] == '\r' || data->raw_map[len - 1] == ' '
-				|| data->raw_map[len - 1] == '\t'))
+		while (len > 0 && (data->raw_map[len - 1] == '\n' 
+			|| data->raw_map[len - 1] == '\r' 
+			|| data->raw_map[len - 1] == ' '
+			|| data->raw_map[len - 1] == '\t'))
 		{
 			data->raw_map[len - 1] = '\0';
 			len--;
@@ -88,6 +117,9 @@ int	fill_grid(t_map_data *data)
 	return (1);
 }
 
+
+
+
 int	parse_data(int fd, t_map_data *data)
 {
 	char	*line;
@@ -97,7 +129,13 @@ int	parse_data(int fd, t_map_data *data)
 	while (line)
 	{
 		if (data->elems_found < 6)
-			parse_id(line, data);
+		{
+			if (!parse_id(line, data))
+			{
+				free(line);
+				return (error_exit("Invalid identifier", data, fd));
+			}
+		}
 		else
 			data->raw_map = ft_strjoin_free(data->raw_map, line);
 		free(line);
@@ -155,5 +193,6 @@ int	main(int argc, char **argv)
 		init_player_vectors(&data);
 		init_graphics(&data);
 	}
+	//free_map_data(&data);
 	return (0);
 }

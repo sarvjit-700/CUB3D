@@ -39,8 +39,9 @@ MLX_INC = -I$(MLX_DIR)/include
 
 
 # files
-SRC = $(PARSING)/main.c $(PARSING)/map_help.c $(PARSING)/validate_grid.c $(PARSING)/colours.c\
-		$(RENDER)/draw.c $(RENDER)/player.c
+SRC = $(PARSING)/main.c $(PARSING)/map_help.c $(PARSING)/validate_grid.c\
+		$(PARSING)/colours.c $(PARSING)/error_handling.c $(PARSING)/utils.c\
+		$(RENDER)/draw.c $(RENDER)/player.c $(RENDER)/texture.c
 OBJ = $(SRC:.c=.o)
 
 INCLUDES = -Iincludes -I$(LIBFT_DIR) -I MLX42/include

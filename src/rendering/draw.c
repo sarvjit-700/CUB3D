@@ -84,22 +84,22 @@ void    calc_line_height(t_ray *ray)
         ray->draw_end = SCREEN_HEIGHT -1;
 }
 
-void    draw_wall_column(t_ray *ray, t_map_data *data, int x)
-{
-    int      y;
-    uint32_t colour;
+// void    draw_wall_column(t_ray *ray, t_map_data *data, int x)
+// {
+//     int      y;
+//     uint32_t colour;
 
-    if (ray->side == 1)
-        colour = 0xAA0000FF;
-    else
-        colour = 0xFF0000FF;
-    y = ray->draw_start;
-    while (y <= ray->draw_end)
-    {
-        mlx_put_pixel(data->img, x, y, colour);
-        y++;
-    }
-}
+//     if (ray->side == 1)
+//         colour = 0xAA0000FF;
+//     else
+//         colour = 0xFF0000FF;
+//     y = ray->draw_start;
+//     while (y <= ray->draw_end)
+//     {
+//         mlx_put_pixel(data->img, x, y, colour);
+//         y++;
+//     }
+// }
 
 
 void    init_dda(t_ray *ray, t_player *player)
@@ -156,7 +156,8 @@ void    render_frame(void *param)
         init_dda(&ray, &data->player);
         perform_dda(&ray, data);
         calc_line_height(&ray);
-        draw_wall_column(&ray, data, x);
+        calc_texture_x(&ray, data);
+        draw_wall_column(data, &ray, x);
         x++;
     }
 }
@@ -176,6 +177,12 @@ int init_graphics(t_map_data *data)
     if (mlx_image_to_window(data->mlx, data->img, 0, 0) == -1)
     {
         mlx_terminate(data->mlx);
+        return (0);
+    }
+    if (!load_textures(data))
+    {
+        printf("TEXTURES FAILURE\n");
+        free_map_data(data);
         return (0);
     }
     mlx_loop_hook(data->mlx, key_hook, data);

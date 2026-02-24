@@ -1,7 +1,7 @@
-NO ../textures/wall.png
-SO ../textures/wall.png
-EA ../textures/wall.png
-WE ../textures/wall.png
+NO ./textures/wallN.png
+SO ./textures/wallS.png
+EA ./textures/wallE.png
+WE ./textures/wallW.png
 
 F  34,139,34
 C  135,206,235

@@ -70,14 +70,14 @@ typedef struct s_map_data
     int         width;
     int         height;
     t_player    player;
-    char        *no_path;
-    char        *so_path;
-    char        *we_path;
-    char        *ea_path;
-    mlx_texture_t *tex_n;
-    mlx_texture_t *tex_s;
-    mlx_texture_t *tex_e;
-    mlx_texture_t *tex_w;
+    // char        *no_path;
+    // char        *so_path;
+    // char        *we_path;
+    // char        *ea_path;
+    // mlx_texture_t *tex_n;
+    // mlx_texture_t *tex_s;
+    // mlx_texture_t *tex_e;
+    // mlx_texture_t *tex_w;
 }   t_map_data;
 
 typedef struct s_ray
@@ -99,7 +99,14 @@ typedef struct s_ray
     int     line_height;
     int     draw_start;
     int     draw_end;
+    double  wall_x;
+    int     tex_x;
+    mlx_texture_t   *texture;
 }   t_ray;
+
+
+// -- utils -- //
+int ft_isspace(char c);
 
 // functions - map_help //
 char    *ft_strjoin_free(char *s1, char *s2);
@@ -108,6 +115,10 @@ void	free_grid(char **grid);
 void    map_dimensions(t_map_data *data);
 char	**dup_grid(char **grid, int height);
 
+
+// -- error handling -- //
+void	free_map_data(t_map_data *data);
+int	error_exit(char *msg, t_map_data *data, int fd);
 
 // -- validate grid -- //
 int	is_valid_char(char c);
@@ -128,5 +139,10 @@ void    init_player_vectors(t_map_data *data);
 void    move_player(t_map_data *data);
 void    rotate_player(t_map_data *data);
 void    strafe_player(t_map_data *data);
+
+// -- textures -- //
+void    calc_texture_x(t_ray *ray, t_map_data *data);
+void    draw_wall_column(t_map_data *data, t_ray *ray, int x);
+int load_textures(t_map_data *data);
 
 #endif
