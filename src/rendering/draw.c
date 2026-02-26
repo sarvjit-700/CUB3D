@@ -84,24 +84,6 @@ void    calc_line_height(t_ray *ray)
         ray->draw_end = SCREEN_HEIGHT -1;
 }
 
-// void    draw_wall_column(t_ray *ray, t_map_data *data, int x)
-// {
-//     int      y;
-//     uint32_t colour;
-
-//     if (ray->side == 1)
-//         colour = 0xAA0000FF;
-//     else
-//         colour = 0xFF0000FF;
-//     y = ray->draw_start;
-//     while (y <= ray->draw_end)
-//     {
-//         mlx_put_pixel(data->img, x, y, colour);
-//         y++;
-//     }
-// }
-
-
 void    init_dda(t_ray *ray, t_player *player)
 {
     ray->map_x = (int)player->x;
@@ -166,29 +148,16 @@ int init_graphics(t_map_data *data)
 {
     data->mlx = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "THE GAME!", false);
     if (!data->mlx)
-        return (0);
+        error_exit("Error - MLX initialization failed", data, -1);
     data->img = mlx_new_image(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
     if (!data->img)
-    {
-        mlx_terminate(data->mlx);
-        return (0);
-    }
+        error_exit("Error - MLX image creation failed", data, -1);
     draw_background(data);
     if (mlx_image_to_window(data->mlx, data->img, 0, 0) == -1)
-    {
-        mlx_terminate(data->mlx);
-        return (0);
-    }
-    if (!load_textures(data))
-    {
-        printf("TEXTURES FAILURE\n");
-        free_map_data(data);
-        return (0);
-    }
+        error_exit("Error - MLX image to window failed", data, -1);
+    load_textures(data);
     mlx_loop_hook(data->mlx, key_hook, data);
     mlx_loop_hook(data->mlx, render_frame, data);
     mlx_loop(data->mlx);
-    mlx_terminate(data->mlx);
     return (1);
 }
-

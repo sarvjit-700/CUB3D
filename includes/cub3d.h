@@ -70,14 +70,6 @@ typedef struct s_map_data
     int         width;
     int         height;
     t_player    player;
-    // char        *no_path;
-    // char        *so_path;
-    // char        *we_path;
-    // char        *ea_path;
-    // mlx_texture_t *tex_n;
-    // mlx_texture_t *tex_s;
-    // mlx_texture_t *tex_e;
-    // mlx_texture_t *tex_w;
 }   t_map_data;
 
 typedef struct s_ray
@@ -107,6 +99,7 @@ typedef struct s_ray
 
 // -- utils -- //
 int ft_isspace(char c);
+int	is_valid_char(char c);
 
 // functions - map_help //
 char    *ft_strjoin_free(char *s1, char *s2);
@@ -118,17 +111,18 @@ char	**dup_grid(char **grid, int height);
 
 // -- error handling -- //
 void	free_map_data(t_map_data *data);
-int	error_exit(char *msg, t_map_data *data, int fd);
+void	error_exit(char *msg, t_map_data *data, int fd);
 
 // -- validate grid -- //
-int	is_valid_char(char c);
-int	loop_grid(t_map_data *data, int y, int x, int *player);
-int	valid_grid_player(t_map_data *data);
-int check_walls(t_map_data *data);
+void	valid_grid_player(t_map_data *data);
+void check_walls(t_map_data *data);
 
+// -- textures -- //
+int parse_texture(char *line, t_map_data *data, int fd);
+int parse_colour_id(char *line, t_map_data *data, int fd);
 
 // -- colours -- //
-uint32_t get_rgba(int r, int g, int b, int a);
+//uint32_t get_rgba(int r, int g, int b, int a);
 int parse_colour(char *line, t_colour *colour);
 
 // -- draw -- //
@@ -143,6 +137,6 @@ void    strafe_player(t_map_data *data);
 // -- textures -- //
 void    calc_texture_x(t_ray *ray, t_map_data *data);
 void    draw_wall_column(t_map_data *data, t_ray *ray, int x);
-int load_textures(t_map_data *data);
+int     load_textures(t_map_data *data);
 
 #endif

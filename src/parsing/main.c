@@ -6,7 +6,7 @@
 /*   By: ssukhija <ssukhija@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 16:02:20 by ssukhija          #+#    #+#             */
-/*   Updated: 2026/02/24 16:00:48 by ssukhija         ###   ########.fr       */
+/*   Updated: 2026/02/26 09:36:58 by ssukhija         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,66 +19,19 @@ int	skip_spaces(char *line, int i)
 	return (i);
 }
 
-char	*extract_path(char *line)
-{
-	int		i;
-	int		len;
-	char	*path;
-
-	i = 0;
-	len = 0;
-	while (line[i] == 32 || line[i] == '\t')
-		i++;
-	while (line[i + len] && !ft_isspace(line[i + len]))
-		len++;
-	path = ft_substr(line, i, len);
-	return (path);
-}
-
-int	parse_id(char *line, t_map_data *data)
+void	parse_id(char *line, t_map_data *data, int fd)
 {
 	int	i;
 
-	i = 0;
-	i = skip_spaces(line, i);
+	i = skip_spaces(line, 0);
 	if (line[i] == '\0' || line[i] == '\n' || line[i] == '\r')
-		return(1) ;
-	if (ft_strncmp(&line[i], "NO ", 3) == 0)
-	{
-		data->elems_found++;
-		data->no.path = extract_path(&line[i + 3]);
-	}
-	else if (ft_strncmp(&line[i], "SO ", 3) == 0)
-	{
-		data->elems_found++;
-		data->so.path = extract_path(&line[i + 3]);
-	}
-	else if (ft_strncmp(&line[i], "EA ", 3) == 0)
-	{
-		data->elems_found++;
-		data->ea.path = extract_path(&line[i + 3]);
-	}	else if (ft_strncmp(&line[i], "WE ", 3) == 0)
-	{
-		data->elems_found++;
-		data->we.path = extract_path(&line[i + 3]);
-	}
-	else if (ft_strncmp(&line[i], "F ", 2) == 0)
-	{
-		if (parse_colour(&line[i], &data->floor))
-			data->elems_found++;
-		else
-			return (0);
-	}
-	else if (ft_strncmp(&line[i], "C ", 2) == 0)
-	{
-		if (parse_colour(&line[i], &data->ceiling))
-			data->elems_found++;
-		else
-			printf("Error - Invalid ceiling colour\n");
-	}
-	else if (data->elems_found < 6)
-		return (0);
-	return (1);
+		return ;
+	if (parse_texture(&line[i], data, fd))
+		return ;
+	if (parse_colour_id(&line[i], data, fd))
+		return ;
+	free(line);	
+	error_exit("Error - Unknown identifier found in map file", data, fd);
 }
 
 void	init_map(t_map_data *data)
@@ -90,70 +43,46 @@ void	init_map(t_map_data *data)
 	data->raw_map = ft_strdup("");
 }
 
-int	fill_grid(t_map_data *data)
+void	fill_grid(t_map_data *data)
 {
 	int	len;
 
-	printf("raw : \n%s\n", data->raw_map);
 	len = ft_strlen(data->raw_map);
 	if (data->raw_map)
 	{
 		len = ft_strlen(data->raw_map);
-		while (len > 0 && (data->raw_map[len - 1] == '\n' 
-			|| data->raw_map[len - 1] == '\r' 
-			|| data->raw_map[len - 1] == ' '
-			|| data->raw_map[len - 1] == '\t'))
+		while (len > 0 && ft_isspace(data->raw_map[len - 1]))
 		{
 			data->raw_map[len - 1] = '\0';
 			len--;
 		}
 	}
 	if (check_empty_lines(data->raw_map))
-	{
-		printf("Error - Empty line inside the map\n");
-		return (0);
-	}
+		error_exit("Error - Empty line inside the map", data, -1);
 	data->grid = ft_split(data->raw_map, '\n');
-	return (1);
 }
 
-
-
-
-int	parse_data(int fd, t_map_data *data)
+void	parse_data(int fd, t_map_data *data)
 {
 	char	*line;
 
 	line = get_next_line(fd);
-	init_map(data);
 	while (line)
 	{
 		if (data->elems_found < 6)
-		{
-			if (!parse_id(line, data))
-			{
-				free(line);
-				return (error_exit("Invalid identifier", data, fd));
-			}
-		}
+			parse_id(line, data, fd);
 		else
 			data->raw_map = ft_strjoin_free(data->raw_map, line);
 		free(line);
 		line = get_next_line(fd);
 	}
 	close(fd);
-	if (!fill_grid(data))
-	{
-		free(data->raw_map);
-		return (0);
-	}
+	fill_grid(data);
 	free(data->raw_map);
 	data->raw_map = NULL;
 	map_dimensions(data);
 	valid_grid_player(data);
-    if (!check_walls(data))
-        return (0);
-    return (1);
+    check_walls(data);
 }
 
 int	check_extension(const char *filename)
@@ -187,11 +116,11 @@ int	main(int argc, char **argv)
 		printf("Error could not open the map file\n");
 		return (0);
 	}
-	if (parse_data(fd, &data))
-	{
-		printf("Parsing great!! BOOTING MLX\n");
-		init_player_vectors(&data);
-		init_graphics(&data);
-	}
+	init_map(&data);
+	parse_data(fd, &data);
+	printf("Parsing great!! BOOTING MLX\n");
+	init_player_vectors(&data);
+	init_graphics(&data);
+	free_map_data(&data);
 	return (0);
 }

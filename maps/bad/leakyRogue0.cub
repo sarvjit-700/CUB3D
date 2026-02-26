@@ -1,4 +1,4 @@
-NO ./textures/BRICKS.png
+NO ./textures/wallN.png
 SO ./textures/wallS.png
 WE ./textures/wallW.png
 EA ./textures/wallE.png
@@ -7,7 +7,7 @@ F 72,72,72
 C 32,32,32
 
    111111111   
-  11111110011
+  1111111001100
 11111111100111111
 1000000000E1    11
 11111011111111     111

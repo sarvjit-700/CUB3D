@@ -6,29 +6,20 @@
 /*   By: ssukhija <ssukhija@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 13:21:06 by ssukhija          #+#    #+#             */
-/*   Updated: 2026/02/23 22:03:49 by ssukhija         ###   ########.fr       */
+/*   Updated: 2026/02/26 09:17:55 by ssukhija         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	is_valid_char(char c)
-{
-	if (ft_strchr("01NSWE ", c))
-		return (1);
-	if (c >= 9 && c <= 13)
-		return (1);
-	return (0);
-}
-
-int	loop_grid(t_map_data *data, int y, int x, int *player)
+void	loop_grid(t_map_data *data, int y, int x, int *player)
 {
 	char	c;
 
 	if (!is_valid_char(data->grid[y][x]))
 	{
-		printf("%c is NOT valid\n", data->grid[y][x]);
-		return (0);
+		printf("Error - character [%c] ", data->grid[y][x]);
+		error_exit("Not Allowed In Map!", data, -1);
 	}
 	c = data->grid[y][x];
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
@@ -37,13 +28,11 @@ int	loop_grid(t_map_data *data, int y, int x, int *player)
 		data->player.x = (double)x + 0.5;
 		data->player.y = (double)y + 0.5;
 		data->player.direction = data->grid[y][x];
-		data->grid[y][x] = '0'; // THIS MAKES PLAYER 0 FOR RAYCASTER? 
-		printf("players :  %d\n", (*player));
+		data->grid[y][x] = '0';
 	}
-	return (1);
 }
 
-int	valid_grid_player(t_map_data *data)
+void	valid_grid_player(t_map_data *data)
 {
 	int y;
 	int x;
@@ -63,10 +52,9 @@ int	valid_grid_player(t_map_data *data)
 	}
 	if (player != 1)
 	{
-		printf("Error - need only 1 player!\n");
-		return (0);
+		printf("Error - %d ", player);
+		error_exit("PLayers. Need Just 1 Player!", data, -1);
 	}
-	return (1);
 }
 
 int	floodfill(char **map, int x, int y, int max_height)
@@ -83,12 +71,36 @@ int	floodfill(char **map, int x, int y, int max_height)
 	if (!floodfill(map, x + 1, y, max_height) ||
 		!floodfill(map, x - 1, y, max_height) ||
 		!floodfill(map, x, y + 1, max_height) ||
-		!floodfill(map, x, y - 1, max_height))
+		!floodfill(map, x, y - 1, max_height) ||
+		!floodfill(map, x + 1, y + 1, max_height) ||
+        !floodfill(map, x - 1, y - 1, max_height) ||
+        !floodfill(map, x + 1, y - 1, max_height) ||
+        !floodfill(map, x - 1, y + 1, max_height))
 		return (0);
 	return (1);
 }
 
-int	check_walls(t_map_data *data)
+int	sweep_leftovers(char **map_copy)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	while (map_copy[y])
+	{
+		x = 0;
+		while (map_copy[y][x])
+		{
+			if (ft_strchr("0NSWE", map_copy[y][x]))
+				return (0);
+			x++;
+		}
+		y++;
+	}
+	return (1);
+}
+
+void	check_walls(t_map_data *data)
 {
 	char	**map_copy;
 	int		is_valid;
@@ -99,13 +111,11 @@ int	check_walls(t_map_data *data)
 	pos_py = (int)data->player.y;
 	map_copy = dup_grid(data->grid, data->height);
 	if (!map_copy)
-		return (0);
+		error_exit("Error - Malloc failed for map copy", data, -1);
 	is_valid = floodfill(map_copy, pos_px, pos_py, data->height);
+	if (is_valid)
+		is_valid = sweep_leftovers(map_copy);
 	free_grid(map_copy);
 	if (!is_valid)
-	{
-		printf("Error - Leaky walls\n");
-		return (0);
-	}
-	return (1);	
+		error_exit("Error - Leaky Walls or Rogue 0's!", data, -1);
 }

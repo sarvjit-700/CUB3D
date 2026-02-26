@@ -6,7 +6,7 @@
 /*   By: ssukhija <ssukhija@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 22:00:34 by ssukhija          #+#    #+#             */
-/*   Updated: 2026/02/23 17:57:36 by ssukhija         ###   ########.fr       */
+/*   Updated: 2026/02/25 10:25:38 by ssukhija         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,21 +55,6 @@ int	check_empty_lines(char *raw_map)
 		i++;
 	}
 	return (0);
-}
-
-void	free_grid(char **grid)
-{
-	int i;
-
-	i = 0;
-	if (!grid)
-		return;
-	while (grid[i])
-	{
-		free(grid[i]);
-		i++;
-	}
-	free(grid);
 }
 
 char	**dup_grid(char **grid, int height)

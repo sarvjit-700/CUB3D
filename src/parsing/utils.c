@@ -18,3 +18,12 @@ int ft_isspace(char c)
         return (1);
     return (0);
 }
+
+int	is_valid_char(char c)
+{
+	if (ft_strchr("01NSWE ", c))
+		return (1);
+	if (c >= 9 && c <= 13)
+		return (1);
+	return (0);
+}

@@ -41,23 +41,19 @@ MLX_INC = -I$(MLX_DIR)/include
 # files
 SRC = $(PARSING)/main.c $(PARSING)/map_help.c $(PARSING)/validate_grid.c\
 		$(PARSING)/colours.c $(PARSING)/error_handling.c $(PARSING)/utils.c\
-		$(RENDER)/draw.c $(RENDER)/player.c $(RENDER)/texture.c
+		$(PARSING)/textures.c $(RENDER)/draw.c $(RENDER)/player.c $(RENDER)/texture.c
+		
 OBJ = $(SRC:.c=.o)
 
 INCLUDES = -Iincludes -I$(LIBFT_DIR) -I MLX42/include
 
 
 # rules
-# all: $(LIBFT) $(NAME)
 all: $(LIBFT) $(MLX_LIB) $(NAME)
 
 
 src/%.o : src/%.c
 	@$(CC) $(CFLAGS) -o $@ -c $< $(INCLUDES) && printf "Compiling: $(notdir $<)\n"
-
-# $(NAME): $(OBJ)
-# 	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
-	
 
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLX_LIB) $(MLX_FLAGS) -o $(NAME)

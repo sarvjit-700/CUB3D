@@ -1,9 +1,9 @@
-NO ./textures/BRICKS.png
+NO ./textures/wallN.png
 SO ./textures/wallS.png
 WE ./textures/wallW.png
 EA ./textures/wallE.png
 
-F 72,72,72
+F 1009,72,72
 C 32,32,32
 
    111111111   

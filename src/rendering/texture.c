@@ -19,10 +19,7 @@ int load_textures(t_map_data *data)
     data->ea.texture = mlx_load_png(data->ea.path);
     data->we.texture = mlx_load_png(data->we.path);
     if (!data->no.texture || !data->so.texture || !data->ea.texture || !data->we.texture)
-    {
-        printf("Error failed to load textures\n");
-        return (0);
-    }
+        error_exit("Error - Failed to load textures", data, -1);
     return (1);
 }
 
@@ -55,10 +52,10 @@ void    calc_texture_x(t_ray *ray, t_map_data *data)
         ray->wall_x = data->player.x + ray->perp_wall_dist * ray->dir_x;
     ray->wall_x -= floor(ray->wall_x);
     ray->tex_x = (int)(ray->wall_x * (double)ray->texture->width);
-    if (ray->side == 0 && ray->dir_x > 0)
+    if (ray->side == 0 && ray->dir_x < 0)
         ray->tex_x = ray->texture->width - ray->tex_x -1;
-    if (ray->side == 1 && ray->dir_y < 0)
-        ray->tex_x = ray->texture->width -ray->tex_x -1;
+    if (ray->side == 1 && ray->dir_y > 0)
+        ray->tex_x = ray->texture->width - ray->tex_x -1;
 }
 
 void    draw_wall_column(t_map_data *data, t_ray *ray, int x)
