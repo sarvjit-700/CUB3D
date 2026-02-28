@@ -22,7 +22,7 @@ NAME = cub3d
 
 # flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g -O3
 MLX_FLAGS = -lglfw -ldl -lGL -lm -pthread
 RM = rm -rf
 
@@ -41,8 +41,8 @@ MLX_INC = -I$(MLX_DIR)/include
 # files
 SRC = $(PARSING)/main.c $(PARSING)/map_help.c $(PARSING)/validate_grid.c\
 		$(PARSING)/colours.c $(PARSING)/error_handling.c $(PARSING)/utils.c\
-		$(PARSING)/textures.c $(RENDER)/draw.c $(RENDER)/player.c $(RENDER)/texture.c
-		
+		$(PARSING)/parse_flags.c $(RENDER)/draw.c $(RENDER)/player.c $(RENDER)/textures.c $(RENDER)/dda.c
+
 OBJ = $(SRC:.c=.o)
 
 INCLUDES = -Iincludes -I$(LIBFT_DIR) -I MLX42/include

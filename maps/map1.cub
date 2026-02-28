@@ -1,15 +1,15 @@
-NO ./textures/wallN.png
-SO ./textures/wallS.png
-WE ./textures/wallW.png
-EA ./textures/wallE.png
+NO ./textures/pinktree.png
+SO ./textures/candytree.png
+WE ./textures/icecream.png
+EA ./textures/star.png
 
-F 72,72,72
-C 32,32,32
+F 152,255,152
+C 255,248,220
 
    111111111   
   11111110011
 11111111100111111
-1000000000E1    11
+1000000000W1    11
 11111011111111    111
     10000001011      1
     10000100001     11

@@ -6,42 +6,56 @@
 /*   By: ssukhija <ssukhija@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 22:00:34 by ssukhija          #+#    #+#             */
-/*   Updated: 2026/02/25 10:25:38 by ssukhija         ###   ########.fr       */
+/*   Updated: 2026/02/28 10:28:36 by ssukhija         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-char	*ft_strjoin_free(char *s1, char *s2)
+void	pad_map_grid(t_map_data *data)
 {
-	char	*new_str;
-	size_t	len1;
-	size_t	len2;
-
-	if (!s1 || !s2)
-		return (NULL);
-	len1 = ft_strlen(s1);
-	len2 = ft_strlen(s2);
-	new_str = malloc(sizeof(char) * (len1 + len2 + 1));
-	if (!new_str)
-		return (NULL);
-	ft_strcpy(new_str, s1, s2);
-	free(s1);
-	return (new_str);
+	int		y;
+	int		x;
+	int		len;
+	char	*padded_line;
+	
+	y = 0;
+	while (y < data->height)
+	{
+		len = ft_strlen(data->grid[y]);
+		if (len < data->width)
+		{
+			padded_line = malloc(sizeof(char) * (data->width + 1));
+			if (!padded_line)
+				error_exit("Error - Malloc failed during map padding", data, -1);
+			x = 0;
+			while (data->grid[y][x])
+			{	
+				padded_line[x] = data->grid[y][x];
+				x++;
+			}
+			while (x < data->width)
+			{
+				padded_line[x] = ' ';
+				x++;
+			}
+			padded_line[x] = '\0';
+			free(data->grid[y]);
+			data->grid[y] = padded_line;
+		}
+		y++;
+	}
 }
 
 int	check_empty_lines(char *raw_map)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
-	
-	while (raw_map[i] == '\n' || raw_map[i] == '\r' || 
-	       raw_map[i] == ' ' || raw_map[i] == '\t')
+	while (ft_isspace(raw_map[i]))
 		i++;
-		
 	while (raw_map[i])
 	{
 		if (raw_map[i] == '\n')
@@ -62,7 +76,7 @@ char	**dup_grid(char **grid, int height)
 	char	**copy;
 	int		i;
 
-	copy = malloc(sizeof(char*) * (height + 1));
+	copy = malloc(sizeof(char *) * (height + 1));
 	if (!copy)
 		return (NULL);
 	i = 0;
@@ -80,33 +94,35 @@ char	**dup_grid(char **grid, int height)
 	return (copy);
 }
 
-void map_dimensions(t_map_data *data)
+void	remove_empty_row(char **grid, int index)
 {
-	int y;
-	int len;
-	int i;
+	int	i;
 
-	data->height = 0;
-	data->width = 0;
-	y = 0;
+	free(grid[index]);
+	i = index;
+	while (grid[i] != NULL)
+	{
+		grid[i] = grid[i + 1];
+		i++;
+	}
+}
+
+void	map_dimensions(t_map_data *data, int y)
+{
+	int	len;
+
 	while (data->grid[y] != NULL)
 	{
 		len = ft_strlen(data->grid[y]);
-		if (len > 0 && data->grid[y][len-1] == '\r')
+		if (len > 0 && data->grid[y][len - 1] == '\r')
 		{
-			data->grid[y][len-1] = '\0';
+			data->grid[y][len - 1] = '\0';
 			len--;
 		}
 		if (len == 0)
 		{
-			free(data->grid[y]);
-			i = y;
-			while (data->grid[i] != NULL)
-			{
-				data->grid[i] = data->grid[i+1];
-				i++;
-			}
-			continue;
+			remove_empty_row(data->grid, y);
+			continue ;
 		}
 		if (len > data->width)
 			data->width = len;

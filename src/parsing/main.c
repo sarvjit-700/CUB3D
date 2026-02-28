@@ -6,18 +6,11 @@
 /*   By: ssukhija <ssukhija@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 16:02:20 by ssukhija          #+#    #+#             */
-/*   Updated: 2026/02/26 09:36:58 by ssukhija         ###   ########.fr       */
+/*   Updated: 2026/02/28 10:29:33 by ssukhija         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int	skip_spaces(char *line, int i)
-{
-	while (line[i] == 32 || (line[i] >= 9 && line[i] <= 13))
-		i++;
-	return (i);
-}
 
 void	parse_id(char *line, t_map_data *data, int fd)
 {
@@ -30,7 +23,7 @@ void	parse_id(char *line, t_map_data *data, int fd)
 		return ;
 	if (parse_colour_id(&line[i], data, fd))
 		return ;
-	free(line);	
+	free(line);
 	error_exit("Error - Unknown identifier found in map file", data, fd);
 }
 
@@ -80,23 +73,12 @@ void	parse_data(int fd, t_map_data *data)
 	fill_grid(data);
 	free(data->raw_map);
 	data->raw_map = NULL;
-	map_dimensions(data);
+	data->height = 0;
+	data->width = 0;
+	map_dimensions(data, 0);
+	pad_map_grid(data);
 	valid_grid_player(data);
-    check_walls(data);
-}
-
-int	check_extension(const char *filename)
-{
-	int	len;
-
-	if (!filename)
-		return (0);
-	len = ft_strlen(filename);
-	if (!len || len < 4)
-		return (0);
-	if (ft_strncmp(filename + len - 4, ".cub", 4) == 0)
-		return (1);
-	return (0);
+	check_walls(data);
 }
 
 int	main(int argc, char **argv)

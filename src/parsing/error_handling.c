@@ -14,11 +14,11 @@
 
 void	free_grid(char **grid)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!grid)
-		return;
+		return ;
 	while (grid[i])
 	{
 		free(grid[i]);
@@ -65,7 +65,7 @@ void	free_map_data(t_map_data *data)
 
 void	error_exit(char *msg, t_map_data *data, int fd)
 {
-	char *trash;
+	char	*trash;
 
 	if (fd >= 0)
 	{

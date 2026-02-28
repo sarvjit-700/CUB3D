@@ -1,0 +1,15 @@
+NO ./textures/pinktree.png
+SO ./textures/candytree.png
+WE ./textures/icecream.png
+EA ./textures/star.png
+
+F 210,180,140
+C 173,216,255
+
+1111111
+1S00101
+1011011
+1001001
+1111111
+
+
