@@ -35,3 +35,15 @@ Furthermore, depending on how you write your player collision later, your player
 How the 8-way Floodfill fixes this:
 If you add the diagonal checks to your floodfill, when it stands on that 0, it will check South-East.
 It will immediately see the       (Space), realize the corners aren't properly sealed, trigger your return (0), and correctly declare the map INVALID.
+
+---------------------------
+void	print_map(char **map, int height) //takeout
+{
+	int i = 0;
+	while (i < height)
+	{
+		printf("%s\n", map[i]);
+		i++;
+	}
+	printf("\n");
+}

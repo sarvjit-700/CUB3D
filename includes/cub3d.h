@@ -6,7 +6,7 @@
 /*   By: ssukhija <ssukhija@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 16:25:41 by ssukhija          #+#    #+#             */
-/*   Updated: 2026/02/28 10:19:10 by ssukhija         ###   ########.fr       */
+/*   Updated: 2026/03/02 09:17:42 by ssukhija         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,11 @@
 
 # include "../libft/libft.h"
 # include "MLX42/MLX42.h"
-# include <fcntl.h>
 # include <math.h>
-# include <stdint.h>
-# include <stdint.h> //for uint32
 # include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <unistd.h>
 
-# define SCREEN_WIDTH 1024
-# define SCREEN_HEIGHT 768
+# define SCREEN_WIDTH 1080
+# define SCREEN_HEIGHT 720
 
 typedef struct s_texture
 {
@@ -104,11 +98,13 @@ int					check_extension(const char *filename);
 char				*ft_strjoin_free(char *s1, char *s2);
 
 // -- map_help -- //
-void				pad_map_grid(t_map_data *data);
 int					check_empty_lines(char *raw_map);
 void				free_grid(char **grid);
 void				map_dimensions(t_map_data *data, int y);
 char				**dup_grid(char **grid, int height);
+
+// -- padding -- //
+void				pad_map_grid(t_map_data *data);
 
 // -- error_handling -- //
 void				free_map_data(t_map_data *data);

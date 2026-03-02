@@ -6,46 +6,11 @@
 /*   By: ssukhija <ssukhija@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 22:00:34 by ssukhija          #+#    #+#             */
-/*   Updated: 2026/02/28 10:28:36 by ssukhija         ###   ########.fr       */
+/*   Updated: 2026/03/02 09:07:25 by ssukhija         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	pad_map_grid(t_map_data *data)
-{
-	int		y;
-	int		x;
-	int		len;
-	char	*padded_line;
-	
-	y = 0;
-	while (y < data->height)
-	{
-		len = ft_strlen(data->grid[y]);
-		if (len < data->width)
-		{
-			padded_line = malloc(sizeof(char) * (data->width + 1));
-			if (!padded_line)
-				error_exit("Error - Malloc failed during map padding", data, -1);
-			x = 0;
-			while (data->grid[y][x])
-			{	
-				padded_line[x] = data->grid[y][x];
-				x++;
-			}
-			while (x < data->width)
-			{
-				padded_line[x] = ' ';
-				x++;
-			}
-			padded_line[x] = '\0';
-			free(data->grid[y]);
-			data->grid[y] = padded_line;
-		}
-		y++;
-	}
-}
 
 int	check_empty_lines(char *raw_map)
 {

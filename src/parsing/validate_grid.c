@@ -6,7 +6,7 @@
 /*   By: ssukhija <ssukhija@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 13:21:06 by ssukhija          #+#    #+#             */
-/*   Updated: 2026/02/28 10:40:22 by ssukhija         ###   ########.fr       */
+/*   Updated: 2026/03/02 08:32:32 by ssukhija         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,39 +68,29 @@ int	floodfill(char **map, int x, int y, int max_height)
 	if (map[y][x] == '1' || map[y][x] == 'V')
 		return (1);
 	map[y][x] = 'V';
-	if (!floodfill(map, x + 1, y, max_height)
-		|| !floodfill(map, x - 1, y, max_height)
-		|| !floodfill(map, x, y + 1, max_height)
+	if (!floodfill(map, x + 1, y, max_height) || !floodfill(map, x - 1, y,
+			max_height) || !floodfill(map, x, y + 1, max_height)
 		|| !floodfill(map, x, y - 1, max_height))
 		return (0);
 	return (1);
 }
 
-void print_map(char **map, int height)//takeout
-{
-    int i = 0;
-    while (i < height)
-    {
-        printf("%s\n", map[i]);
-        i++;
-    }
-    printf("\n");
-}
-
-
-int	sweep_leftovers(char **map_copy)
+int	sweep_leftovers(char **map_copy, int max_height)
 {
 	int	y;
 	int	x;
 
 	y = 0;
-	while (map_copy[y])
+	while (y < max_height)
 	{
 		x = 0;
 		while (map_copy[y][x])
 		{
 			if (ft_strchr("0NSWE", map_copy[y][x]))
-				return (0);
+			{
+				if (!floodfill(map_copy, x, y, max_height))
+					return (0);
+			}
 			x++;
 		}
 		y++;
@@ -121,9 +111,8 @@ void	check_walls(t_map_data *data)
 	if (!map_copy)
 		error_exit("Error - Malloc failed for map copy", data, -1);
 	is_valid = floodfill(map_copy, pos_px, pos_py, data->height);
-	print_map(map_copy, data->height);//take out
-	//if (is_valid)
-	//	is_valid = sweep_leftovers(map_copy);
+	if (is_valid)
+		is_valid = sweep_leftovers(map_copy, data->height);
 	free_grid(map_copy);
 	if (!is_valid)
 		error_exit("Error - Leaky Walls or Rogue 0's!", data, -1);

@@ -6,7 +6,7 @@
 /*   By: ssukhija <ssukhija@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 16:02:20 by ssukhija          #+#    #+#             */
-/*   Updated: 2026/02/28 10:29:33 by ssukhija         ###   ########.fr       */
+/*   Updated: 2026/03/01 16:03:22 by ssukhija         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	parse_id(char *line, t_map_data *data, int fd)
 	if (parse_colour_id(&line[i], data, fd))
 		return ;
 	free(line);
-	error_exit("Error - Unknown identifier found in map file", data, fd);
+	error_exit("Error - Issues with Identifiers!", data, fd);
 }
 
 void	init_map(t_map_data *data)
@@ -40,6 +40,8 @@ void	fill_grid(t_map_data *data)
 {
 	int	len;
 
+	if (!data->raw_map || data->raw_map[0] == '\0')
+		error_exit("Error - No map grid found in file", data, -1);
 	len = ft_strlen(data->raw_map);
 	if (data->raw_map)
 	{
@@ -70,6 +72,8 @@ void	parse_data(int fd, t_map_data *data)
 		line = get_next_line(fd);
 	}
 	close(fd);
+	if (data->elems_found < 6)
+		error_exit("Error - Missing map identifiers!", data, -1);
 	fill_grid(data);
 	free(data->raw_map);
 	data->raw_map = NULL;

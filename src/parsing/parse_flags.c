@@ -6,7 +6,7 @@
 /*   By: ssukhija <ssukhija@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 09:30:22 by ssukhija          #+#    #+#             */
-/*   Updated: 2026/02/27 09:32:36 by ssukhija         ###   ########.fr       */
+/*   Updated: 2026/03/02 08:46:53 by ssukhija         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,13 @@
 int	validate_path(char *path)
 {
 	int	fd;
+	int	len;
 
+	if (!path)
+		return (0);
+	len = ft_strlen(path);
+	if (len < 4 || ft_strncmp(path + len - 4, ".png", 4) != 0)
+		return (0);
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		return (0);
@@ -50,7 +56,7 @@ int	assign_texture(char **path, char *line, t_map_data *data, int fd)
 	if (!validate_path(*path))
 	{
 		free(line);
-		error_exit("Error - Texture file cannot be read", data, fd);
+		error_exit("Error - Texture file cannot be read!", data, fd);
 	}
 	data->elems_found++;
 	return (1);

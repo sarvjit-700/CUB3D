@@ -41,7 +41,8 @@ MLX_INC = -I$(MLX_DIR)/include
 # files
 SRC = $(PARSING)/main.c $(PARSING)/map_help.c $(PARSING)/validate_grid.c\
 		$(PARSING)/colours.c $(PARSING)/error_handling.c $(PARSING)/utils.c\
-		$(PARSING)/parse_flags.c $(RENDER)/draw.c $(RENDER)/player.c $(RENDER)/textures.c $(RENDER)/dda.c
+		$(PARSING)/padding.c $(PARSING)/parse_flags.c\
+		$(RENDER)/draw.c $(RENDER)/player.c $(RENDER)/textures.c $(RENDER)/dda.c
 
 OBJ = $(SRC:.c=.o)
 
