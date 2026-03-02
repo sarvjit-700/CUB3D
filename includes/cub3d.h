@@ -6,7 +6,7 @@
 /*   By: ssukhija <ssukhija@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 16:25:41 by ssukhija          #+#    #+#             */
-/*   Updated: 2026/03/02 09:17:42 by ssukhija         ###   ########.fr       */
+/*   Updated: 2026/03/02 10:50:50 by ssukhija         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 # include "MLX42/MLX42.h"
 # include <math.h>
 # include <stdio.h>
+# include <stdlib.h>
+# include <stdint.h>
+# include <fcntl.h>
 
 # define SCREEN_WIDTH 1080
 # define SCREEN_HEIGHT 720
