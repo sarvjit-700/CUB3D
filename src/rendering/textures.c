@@ -6,7 +6,7 @@
 /*   By: ssukhija <ssukhija@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 10:03:47 by ssukhija          #+#    #+#             */
-/*   Updated: 2026/02/27 10:05:31 by ssukhija         ###   ########.fr       */
+/*   Updated: 2026/03/03 12:50:51 by ssukhija         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	load_textures(t_map_data *data)
 	data->we.texture = mlx_load_png(data->we.path);
 	if (!data->no.texture || !data->so.texture || !data->ea.texture
 		|| !data->we.texture)
-		error_exit("Error - Failed to load textures", data, -1);
+		error_exit("Failed to load textures", data, -1);
 	return (1);
 }
 

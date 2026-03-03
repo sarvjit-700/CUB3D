@@ -6,7 +6,7 @@
 /*   By: ssukhija <ssukhija@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 18:03:22 by ssukhija          #+#    #+#             */
-/*   Updated: 2026/02/27 09:51:42 by ssukhija         ###   ########.fr       */
+/*   Updated: 2026/03/03 12:50:36 by ssukhija         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,13 @@ int	init_graphics(t_map_data *data)
 {
 	data->mlx = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "THE GAME!", false);
 	if (!data->mlx)
-		error_exit("Error - MLX initialization failed", data, -1);
+		error_exit("MLX initialization failed", data, -1);
 	data->img = mlx_new_image(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	if (!data->img)
-		error_exit("Error - MLX image creation failed", data, -1);
+		error_exit("MLX image creation failed", data, -1);
 	draw_background(data);
 	if (mlx_image_to_window(data->mlx, data->img, 0, 0) == -1)
-		error_exit("Error - MLX image to window failed", data, -1);
+		error_exit("MLX image to window failed", data, -1);
 	load_textures(data);
 	mlx_loop_hook(data->mlx, key_hook, data);
 	mlx_loop_hook(data->mlx, render_frame, data);

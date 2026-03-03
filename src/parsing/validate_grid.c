@@ -6,7 +6,7 @@
 /*   By: ssukhija <ssukhija@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/23 13:21:06 by ssukhija          #+#    #+#             */
-/*   Updated: 2026/03/02 08:32:32 by ssukhija         ###   ########.fr       */
+/*   Updated: 2026/03/03 12:50:15 by ssukhija         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	loop_grid(t_map_data *data, int y, int x, int *player)
 
 	if (!is_valid_char(data->grid[y][x]))
 	{
-		printf("Error - character [%c] ", data->grid[y][x]);
+		printf("Character [%c] ", data->grid[y][x]);
 		error_exit("Not Allowed In Map!", data, -1);
 	}
 	c = data->grid[y][x];
@@ -52,7 +52,7 @@ void	valid_grid_player(t_map_data *data)
 	}
 	if (player != 1)
 	{
-		printf("Error - %d ", player);
+		printf("%d ", player);
 		error_exit("PLayers. Need Just 1 Player!", data, -1);
 	}
 }
@@ -109,11 +109,11 @@ void	check_walls(t_map_data *data)
 	pos_py = (int)data->player.y;
 	map_copy = dup_grid(data->grid, data->height);
 	if (!map_copy)
-		error_exit("Error - Malloc failed for map copy", data, -1);
+		error_exit("Malloc failed for map copy", data, -1);
 	is_valid = floodfill(map_copy, pos_px, pos_py, data->height);
 	if (is_valid)
 		is_valid = sweep_leftovers(map_copy, data->height);
 	free_grid(map_copy);
 	if (!is_valid)
-		error_exit("Error - Leaky Walls or Rogue 0's!", data, -1);
+		error_exit("Leaky Walls or Rogue 0's!", data, -1);
 }

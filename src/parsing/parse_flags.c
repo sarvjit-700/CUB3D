@@ -6,7 +6,7 @@
 /*   By: ssukhija <ssukhija@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 09:30:22 by ssukhija          #+#    #+#             */
-/*   Updated: 2026/03/02 08:46:53 by ssukhija         ###   ########.fr       */
+/*   Updated: 2026/03/03 12:48:54 by ssukhija         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ int	assign_texture(char **path, char *line, t_map_data *data, int fd)
 	if (*path != NULL)
 	{
 		free(line);
-		error_exit("Error - Duplicate texture found!", data, fd);
+		error_exit("Duplicate texture found!", data, fd);
 	}
 	*path = extract_path(line + 3);
 	if (!validate_path(*path))
 	{
 		free(line);
-		error_exit("Error - Texture file cannot be read!", data, fd);
+		error_exit("Texture file cannot be read!", data, fd);
 	}
 	data->elems_found++;
 	return (1);
@@ -88,12 +88,12 @@ int	parse_colour_id(char *line, t_map_data *data, int fd)
 	if (c->r != -1)
 	{
 		free(line);
-		error_exit("Error - Too many Floor/Ceiling colours!", data, fd);
+		error_exit("Too many Floor/Ceiling colours!", data, fd);
 	}
 	if (parse_colour(line, c) == 0)
 	{
 		free(line);
-		error_exit("Error - Invalid colour format!", data, fd);
+		error_exit("Invalid colour format!", data, fd);
 	}
 	data->elems_found++;
 	return (1);

@@ -19,7 +19,7 @@ void	pad_single_line(t_map_data *data, int y)
 
 	padded_line = malloc(sizeof(char) * (data->width + 1));
 	if (!padded_line)
-		error_exit("Error - Malloc failed when padding", data, -1);
+		error_exit("Malloc failed when padding", data, -1);
 	x = 0;
 	while (data->grid[y][x])
 	{

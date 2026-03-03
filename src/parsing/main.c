@@ -6,7 +6,7 @@
 /*   By: ssukhija <ssukhija@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 16:02:20 by ssukhija          #+#    #+#             */
-/*   Updated: 2026/03/03 12:38:36 by ssukhija         ###   ########.fr       */
+/*   Updated: 2026/03/03 12:48:16 by ssukhija         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	parse_id(char *line, t_map_data *data, int fd)
 	if (parse_colour_id(&line[i], data, fd))
 		return ;
 	free(line);
-	error_exit("Error - Issues with Identifiers!", data, fd);
+	error_exit("Issues with Identifiers!", data, fd);
 }
 
 void	init_map(t_map_data *data)
@@ -41,7 +41,7 @@ void	fill_grid(t_map_data *data)
 	int	len;
 
 	if (!data->raw_map || data->raw_map[0] == '\0')
-		error_exit("Error - No map grid found in file", data, -1);
+		error_exit("No map grid found in file", data, -1);
 	len = ft_strlen(data->raw_map);
 	if (data->raw_map)
 	{
@@ -53,7 +53,7 @@ void	fill_grid(t_map_data *data)
 		}
 	}
 	if (check_empty_lines(data->raw_map))
-		error_exit("Error - Empty line inside the map", data, -1);
+		error_exit("Empty line inside the map", data, -1);
 	data->grid = ft_split(data->raw_map, '\n');
 }
 
@@ -93,7 +93,7 @@ int	main(int argc, char **argv)
 	fd = -1;
 	if (argc != 2 || !check_extension(argv[1]))
 	{
-		printf("Error\nIncorrect format. Use ./cub3d map.cub\n");
+		printf("Error\nIncorrect format. Use ./cub3D maps/[mapname].cub\n");
 		return (0);
 	}
 	fd = open(argv[1], O_RDONLY);
