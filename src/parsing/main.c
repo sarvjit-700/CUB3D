@@ -6,7 +6,7 @@
 /*   By: ssukhija <ssukhija@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 16:02:20 by ssukhija          #+#    #+#             */
-/*   Updated: 2026/03/01 16:03:22 by ssukhija         ###   ########.fr       */
+/*   Updated: 2026/03/03 12:38:36 by ssukhija         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	parse_data(int fd, t_map_data *data)
 	}
 	close(fd);
 	if (data->elems_found < 6)
-		error_exit("Error - Missing map identifiers!", data, -1);
+		error_exit("Missing map identifiers!", data, -1);
 	fill_grid(data);
 	free(data->raw_map);
 	data->raw_map = NULL;
@@ -93,18 +93,18 @@ int	main(int argc, char **argv)
 	fd = -1;
 	if (argc != 2 || !check_extension(argv[1]))
 	{
-		printf("Incorrect format. Use ./cub3d map.cub\n");
+		printf("Error\nIncorrect format. Use ./cub3d map.cub\n");
 		return (0);
 	}
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 	{
-		printf("Error could not open the map file\n");
+		printf("Error\ncould not open the map file\n");
 		return (0);
 	}
 	init_map(&data);
 	parse_data(fd, &data);
-	printf("Parsing great!! BOOTING MLX\n");
+	printf("Parsing great!! BOOTING GAME!\n");
 	init_player_vectors(&data);
 	init_graphics(&data);
 	free_map_data(&data);

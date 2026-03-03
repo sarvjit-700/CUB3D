@@ -77,7 +77,7 @@ void	error_exit(char *msg, t_map_data *data, int fd)
 		}
 		close(fd);
 	}
-	printf("%s\n", msg);
+	printf("Error\n%s\n", msg);
 	free_map_data(data);
 	exit(1);
 }
