@@ -3,8 +3,8 @@ SO ./textures/bars.png
 WE ./textures/bars.png
 EA ./textures/bars.png
 
-F 255,255,255
-C 255,255,255
+F 0,0,0
+C 0,0,0
 
 111111111111111111111111111111
 100000000011110000000000000001

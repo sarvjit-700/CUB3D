@@ -29,6 +29,13 @@ void	free_grid(char **grid)
 
 void	cleanup_mlx(t_map_data *data)
 {
+	if (!data)
+        return ;
+	if (data->mlx && data->img)
+	{
+		mlx_delete_image(data->mlx, data->img);
+		data->img = NULL;
+	}
 	if (data->no.texture)
 		mlx_delete_texture(data->no.texture);
 	if (data->so.texture)
@@ -38,7 +45,10 @@ void	cleanup_mlx(t_map_data *data)
 	if (data->ea.texture)
 		mlx_delete_texture(data->ea.texture);
 	if (data->mlx)
+	{
 		mlx_terminate(data->mlx);
+		data->mlx = NULL;
+	}
 }
 
 void	free_map_data(t_map_data *data)

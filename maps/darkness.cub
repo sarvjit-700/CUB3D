@@ -1,7 +1,7 @@
-NO ./textures/dots.png
-SO ./textures/dots.png
-WE ./textures/dots.png
-EA ./textures/dots.png
+NO ./textures/darkness.png
+SO ./textures/darkness.png
+WE ./textures/darkness.png
+EA ./textures/darkness.png
 
 F 0,0,0
 C 0,0,0
