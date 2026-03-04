@@ -1,7 +1,7 @@
-NO ./textures/pinktree.png
-SO ./textures/candytree.png
-WE ./textures/icecream.png
-EA ./textures/star.png
+NO ./textures/wallN.png
+SO ./textures/wallS.png
+WE ./textures/wallW.png
+EA ./textures/wallE.png
 
 F 120,60,30
 C 255,182,193
