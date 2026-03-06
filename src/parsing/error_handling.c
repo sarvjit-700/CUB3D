@@ -30,7 +30,7 @@ void	free_grid(char **grid)
 void	cleanup_mlx(t_map_data *data)
 {
 	if (!data)
-        return ;
+		return ;
 	if (data->mlx && data->img)
 	{
 		mlx_delete_image(data->mlx, data->img);
