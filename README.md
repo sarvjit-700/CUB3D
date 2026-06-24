@@ -17,11 +17,17 @@ Clone the repository from intra:
 2)cd CUB3D
 
 3)To use the MLX42 library, copy/paste this:
+
 git submodule update --init --recursive
+
 cd MLX42
+
 cmake -B build
+
 cmake --build build
+
 cd ..
+
 make
 
 
